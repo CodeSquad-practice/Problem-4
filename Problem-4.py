@@ -1,13 +1,11 @@
 def main():
     print("사각형 그리기 프로그램")
-    
     paint=makePaint()
     num1,num2=takeTwoNumbers(0)
-    print(num1,num2)
     num3,num4=takeTwoNumbers(1)
-    print(num3,num4)
     paint=drawRectangle(paint,num1,num2,num3,num4)
     printPaint(paint)
+    print("프로그램을 종료합니다.")
 
 def makePaint():
     paint=[
