@@ -4,19 +4,7 @@ def main():
     print("명령을 입력하세요(help: 도움말)")
     while True:
         paint=getOrder(paint)
-
-
-        # x,y,r=takeThreeNumbers()
-        # result=drawCircle(paint,x,y,r)
-        # if result[0]==False :
-        #     print("잘못 입력하셨습니다.")
-        #     continue
-        # else:
-        #     paint=result[1]
         printPaint(paint)
-        # num1,num2=takeTwoNumbers(0)
-        # num3,num4=takeTwoNumbers(1)
-        # paint=drawRectangle(paint,num1,num2,num3,num4)
         print("프로그램을 종료합니다.")
         break
 
@@ -32,18 +20,22 @@ def getOrder(paint):
             inputs=splitString(order[1])
             x,y,r,m=inputs
             x,y,r=int(x),int(y),int(r)
-
             if not canDrawCircle(x,y,r):
                 print("잘못 입력하셨습니다.")
                 continue
             paint=drawCircle(paint,x,y,r,m)
             return paint
         elif order[0]=='rectangle':
-            pass
+            inputs=splitString(order[1])
+            x1,y1,x2,y2,m=inputs
+            x1,y1,x2,y2=int(x1),int(y1),int(x2),int(y2)
+            paint=drawRectangle(paint,x1,y1,x2,y2,m)
+            return paint
         elif order[0]=='quit':
-            pass
+            print('프로그램을 종료합니다.')
+            return
         else:
-            pass
+            print("잘못 입력하셨습니다.")
 
 def splitString(string):
     string=string.split(',')
@@ -145,7 +137,7 @@ def takeThreeNumbers(string):
             continue
         return num1,num2,num3
 
-def drawRectangle(paint,c1,r1,c2,r2):
+def drawRectangle(paint,c1,r1,c2,r2,m):
     # r2,c2가 항상 더 크도록 함
     if c1>c2:
         c1,c2=c2,c1
@@ -154,7 +146,7 @@ def drawRectangle(paint,c1,r1,c2,r2):
     
     for i in range(c1,c2+1):
         for j in range(r1,r2+1):
-            paint[j][i]='*'
+            paint[j][i]=m
     return paint
 
 def drawCircle(paint,x,y,r,m):
