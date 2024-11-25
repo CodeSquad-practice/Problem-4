@@ -157,3 +157,73 @@ def drawCircle(paint,x,y,r):
 따라서 모든 점들을 대상으로 한번씩 돌면서 중심으로 부터의 거리, 즉 x좌표의 차이의 제곱 + y좌표의 차이의 제곱이 반지름의 제곱보다 작거나 같은지, 혹은 큰지를 확인한다.  
 점을 그려야할 때, 그 점이 그림판의 테두리라면 원을 그릴 수 없기에, paint와 함께 false를 return 한다.   
 main함수에서 False를 return 받으면 다시 입력을 받도록 구현했다.
+
+# Problem-4 3단계 
+## 입력받기
+```python
+def getOrder(paint):
+    while True:
+        print("명령을 입력하세요(help: 도움말)")
+        order=input().split(maxsplit=1)
+        if order[0]=='help':
+            help()
+            continue
+        elif order[0]=='line':
+            inputs=splitString(order[1])
+            x1,y1,x2,y2,m=inputs
+            x1,y1,x2,y2=int(x1),int(y1),int(x2),int(y2)
+            paint=drawLine(paint,x1,y1,x2,y2,m)
+            return paint
+        elif order[0]=='circle':
+            inputs=splitString(order[1])
+            x,y,r,m=inputs
+            x,y,r=int(x),int(y),int(r)
+            if not canDrawCircle(x,y,r):
+                print("잘못 입력하셨습니다.")
+                continue
+            paint=drawCircle(paint,x,y,r,m)
+            return paint
+        elif order[0]=='rectangle':
+            inputs=splitString(order[1])
+            x1,y1,x2,y2,m=inputs
+            x1,y1,x2,y2=int(x1),int(y1),int(x2),int(y2)
+            paint=drawRectangle(paint,x1,y1,x2,y2,m)
+            return paint
+        elif order[0]=='quit':
+            print('프로그램을 종료합니다.')
+            sys.exit()
+        else:
+            print("잘못 입력하셨습니다.")
+```
+입력받기를 통해 처음 입력의 시작이 무엇이냐에 따라 실행하는 것을 다르게 했다.
+문자를 입력받아 그 문자로 그리게 하는 것은 어렵지 않아 바로 수정했다.
+
+## 직선 그리기
+```python
+def drawLine(paint,x1,y1,x2,y2,m):
+    # x1이 무조건 왼쪽에 
+    if x1>x2:
+        x2,x1=x1,x2
+        y2,y1=y1,y2
+    x,y=x1,y1
+    if y2>y1:
+        sy=1
+    elif y2==y1:
+        sy=0
+    else:
+        sy=-1
+    paint[y][x]=m
+    while True:
+        if x!=x2:
+            x+=1
+        if y!=y2:
+            y+=sy
+        paint[y][x]=m
+        if x==x2 and y==y2:
+            break
+    return paint
+```
+직선을 그리는 것은 실패했다.   
+정 대각선이나 수평선은 긋기 쉽지만 x좌표의 차이와 y좌표의 차이가 다른 것은 어려웠다.   
+아마 x좌표의 차이와 y좌표의 차이를 비교하여 더 큰 차이를 분배하는 것이라고 생각했는데 구현을 해내지는 못했다.  
+대신 단순히 대각선으로 긋고, 남은 차이는 그냥 수평선으로 긋는 것으로 구현했다.
