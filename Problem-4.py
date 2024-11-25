@@ -1,42 +1,55 @@
 def main():
     print("사각형 그리기 프로그램")
     paint=makePaint()
-    print("명령을 입력하세요(help: 도움말)"")
+    print("명령을 입력하세요(help: 도움말)")
     while True:
-        order=getOrder()
-        print(order)
+        paint=getOrder(paint)
 
 
-        # # x,y,r=takeThreeNumbers()
+        # x,y,r=takeThreeNumbers()
         # result=drawCircle(paint,x,y,r)
         # if result[0]==False :
         #     print("잘못 입력하셨습니다.")
         #     continue
         # else:
         #     paint=result[1]
-        # printPaint(paint)
+        printPaint(paint)
         # num1,num2=takeTwoNumbers(0)
         # num3,num4=takeTwoNumbers(1)
         # paint=drawRectangle(paint,num1,num2,num3,num4)
         print("프로그램을 종료합니다.")
         break
 
-def getOrder():
-    order=input().split(maxsplit=1)
-    if order[0]=='help':
-        help()
-    elif order[0]=='line':
-        pass
-    elif order[0]=='circle':
-        pass
-    elif order[0]=='rectangle':
-        pass
-    elif order[0]=='quit':
-        pass
-    else:
-        pass
+def getOrder(paint):
+    while True:
+        order=input().split(maxsplit=1)
+        if order[0]=='help':
+            help()
+            continue
+        elif order[0]=='line':
+            pass
+        elif order[0]=='circle':
+            inputs=splitString(order[1])
+            x,y,r,m=inputs
+            x,y,r=int(x),int(y),int(r)
 
-    return order
+            if not canDrawCircle(x,y,r):
+                print("잘못 입력하셨습니다.")
+                continue
+            paint=drawCircle(paint,x,y,r,m)
+            return paint
+        elif order[0]=='rectangle':
+            pass
+        elif order[0]=='quit':
+            pass
+        else:
+            pass
+
+def splitString(string):
+    string=string.split(',')
+    for i in range(len(string)):
+        string[i]=string[i].strip()
+    return string
 
 def help():
     print("""help: 도움말, 지금 이 화면을 출력한다.
@@ -98,12 +111,11 @@ def takeTwoNumbers(ordinal):
             print("잘못 입력하셨습니다.")
             continue
         return num1,num2
-    
-def takeThreeNumbers():
 
+def takeThreeNumbers(string):
     while True:
-        print("x,y,r을 입력하세요. (예: 10, 20, 5)")
-        numbers=input().split(',')
+        # print("x,y,r을 입력하세요. (예: 10, 20, 5)")
+        numbers=string.split(',')
         # 3개가 아니면 다시 입력
         if len(numbers)!=3:
             print("잘못 입력하셨습니다.")
@@ -145,14 +157,21 @@ def drawRectangle(paint,c1,r1,c2,r2):
             paint[j][i]='*'
     return paint
 
-def drawCircle(paint,x,y,r):
+def drawCircle(paint,x,y,r,m):
     for i in range(80):
         for j in range(30):
             if (x-i)**2+(y-j)**2<=r**2:
-                if i==0 or i==79 or j==0 or j==30:
-                    return (False,paint)
-                paint[j][i]='*'
-    return (True,paint)
+                paint[j][i]=m
+    return paint
+
+def canDrawCircle(x,y,r):
+    for i in range(80):
+        for j in range(30):
+            if (x-i)**2+(y-j)**2<=r**2:
+                 if i==0 or i==79 or j==0 or j==30:
+                    return False
+    return True
+
 
 if __name__=="__main__":
     main()
