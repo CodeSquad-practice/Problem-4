@@ -1,15 +1,14 @@
+import sys
 def main():
     print("사각형 그리기 프로그램")
     paint=makePaint()
-    print("명령을 입력하세요(help: 도움말)")
     while True:
         paint=getOrder(paint)
         printPaint(paint)
-        print("프로그램을 종료합니다.")
-        break
 
 def getOrder(paint):
     while True:
+        print("명령을 입력하세요(help: 도움말)")
         order=input().split(maxsplit=1)
         if order[0]=='help':
             help()
@@ -33,7 +32,7 @@ def getOrder(paint):
             return paint
         elif order[0]=='quit':
             print('프로그램을 종료합니다.')
-            return
+            sys.exit()
         else:
             print("잘못 입력하셨습니다.")
 
