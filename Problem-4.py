@@ -22,9 +22,6 @@ def printPaint(paint):
             print(elem,end='')
         print()
 
-# paint=makePaint()
-# printPaint(paint)
-
 def takeTwoNumbers():
     while True:
         print("첫 번째 점의 좌표를 입력하세요. (예: 10, 10)")
@@ -50,5 +47,13 @@ def takeTwoNumbers():
             print("잘못 입력하셨습니다.")
             continue
         return num1,num2
-num1,num2=takeTwoNumbers()
-print(num1,num2)
+
+def main():
+    paint=makePaint()
+    printPaint(paint)
+
+    num1,num2=takeTwoNumbers()
+    print(num1,num2)
+
+if __name__=="__main__":
+    main()
