@@ -1,20 +1,51 @@
 def main():
     print("사각형 그리기 프로그램")
     paint=makePaint()
+    print("명령을 입력하세요(help: 도움말)"")
     while True:
-        x,y,r=takeThreeNumbers()
-        result=drawCircle(paint,x,y,r)
-        if result[0]==False :
-            print("잘못 입력하셨습니다.")
-            continue
-        else:
-            paint=result[1]
-        printPaint(paint)
+        order=getOrder()
+        print(order)
+
+
+        # # x,y,r=takeThreeNumbers()
+        # result=drawCircle(paint,x,y,r)
+        # if result[0]==False :
+        #     print("잘못 입력하셨습니다.")
+        #     continue
+        # else:
+        #     paint=result[1]
+        # printPaint(paint)
         # num1,num2=takeTwoNumbers(0)
         # num3,num4=takeTwoNumbers(1)
         # paint=drawRectangle(paint,num1,num2,num3,num4)
         print("프로그램을 종료합니다.")
         break
+
+def getOrder():
+    order=input().split(maxsplit=1)
+    if order[0]=='help':
+        help()
+    elif order[0]=='line':
+        pass
+    elif order[0]=='circle':
+        pass
+    elif order[0]=='rectangle':
+        pass
+    elif order[0]=='quit':
+        pass
+    else:
+        pass
+
+    return order
+
+def help():
+    print("""help: 도움말, 지금 이 화면을 출력한다.
+line x1, y1, x2, y2, m: 두 좌표를 지정한 모양으로 잇는 선을 그린다.
+circle x, y, r, m: x,y 를 중점으로 하는 반지름 r인 원을 그린다.
+rectangle x1, y1, x2, y2, m: 두 좌표를 양 끝점으로 하는 직사각형을 그린다.
+quit: 프로그램을 종료한다.
+          """)
+
 
 def makePaint():
     paint=[
