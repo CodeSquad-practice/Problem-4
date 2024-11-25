@@ -16,7 +16,11 @@ def makePaint():
 
     return paint
 
-# for elems in paint:
-#     for elem in elems:
-#         print(elem,end='')
-#     print()
+def printPaint(paint):
+    for elems in paint:
+        for elem in elems:
+            print(elem,end='')
+        print()
+
+paint=makePaint()
+printPaint(paint)
