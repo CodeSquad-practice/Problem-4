@@ -14,7 +14,11 @@ def getOrder(paint):
             help()
             continue
         elif order[0]=='line':
-            pass
+            inputs=splitString(order[1])
+            x1,y1,x2,y2,m=inputs
+            x1,y1,x2,y2=int(x1),int(y1),int(x2),int(y2)
+            paint=drawLine(paint,x1,y1,x2,y2,m)
+            return paint
         elif order[0]=='circle':
             inputs=splitString(order[1])
             x,y,r,m=inputs
@@ -155,6 +159,29 @@ def drawCircle(paint,x,y,r,m):
                 paint[j][i]=m
     return paint
 
+def drawLine(paint,x1,y1,x2,y2,m):
+    # x1이 무조건 왼쪽에 
+    if x1>x2:
+        x2,x1=x1,x2
+        y2,y1=y1,y2
+    x,y=x1,y1
+    if y2>y1:
+        sy=1
+    elif y2==y1:
+        sy=0
+    else:
+        sy=-1
+    paint[y][x]=m
+    while True:
+        if x!=x2:
+            x+=1
+        if y!=y2:
+            y+=sy
+        paint[y][x]=m
+        if x==x2 and y==y2:
+            break
+    return paint
+
 def canDrawCircle(x,y,r):
     for i in range(80):
         for j in range(30):
@@ -162,7 +189,6 @@ def canDrawCircle(x,y,r):
                  if i==0 or i==79 or j==0 or j==30:
                     return False
     return True
-
 
 if __name__=="__main__":
     main()
