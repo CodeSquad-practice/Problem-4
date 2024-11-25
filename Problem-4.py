@@ -8,6 +8,7 @@ def main():
     # num1,num2=takeTwoNumbers(0)
     # num3,num4=takeTwoNumbers(1)
     # paint=drawRectangle(paint,num1,num2,num3,num4)
+    paint=drawCircle(paint,x,y,r)
     printPaint(paint)
     print("프로그램을 종료합니다.")
 
@@ -92,7 +93,7 @@ def takeThreeNumbers():
         if num2<1 or num2>=29:
             print("잘못 입력하셨습니다.")
             continue
-        if num3<0 or num3>28:
+        if num3<2 or num3>28:
             print("잘못 입력하셨습니다.")
             continue
         return num1,num2,num3
@@ -107,6 +108,13 @@ def drawRectangle(paint,c1,r1,c2,r2):
     for i in range(c1,c2+1):
         for j in range(r1,r2+1):
             paint[j][i]='*'
+    return paint
+
+def drawCircle(paint,x,y,r):
+    for i in range(80):
+        for j in range(30):
+            if (x-i)**2+(y-j)**2<=r**2:
+                paint[j][i]='*'
     return paint
 
 if __name__=="__main__":
