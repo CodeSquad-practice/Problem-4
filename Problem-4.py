@@ -2,9 +2,9 @@ def main():
     print("사각형 그리기 프로그램")
     
     paint=makePaint()
-    num1,num2=takeTwoNumbers()
+    num1,num2=takeTwoNumbers(0)
     print(num1,num2)
-    num3,num4=takeTwoNumbers()
+    num3,num4=takeTwoNumbers(1)
     print(num3,num4)
     paint=drawRectangle(paint,num1,num2,num3,num4)
     printPaint(paint)
@@ -33,9 +33,11 @@ def printPaint(paint):
             print(elem,end='')
         print()
 
-def takeTwoNumbers():
+def takeTwoNumbers(ordinal):
+    dots=['첫 번째','두 번째']
+    example=['10, 10','70, 20']
     while True:
-        print("첫 번째 점의 좌표를 입력하세요. (예: 10, 10)")
+        print(f"{dots[ordinal]} 점의 좌표를 입력하세요. (예: {example[ordinal]})")
         numbers=input().split(',')
         # 2개가 아니면 다시 입력
         if len(numbers)!=2:
@@ -71,9 +73,6 @@ def drawRectangle(paint,c1,r1,c2,r2):
             paint[j][i]='*'
     return paint
 
-
 if __name__=="__main__":
     main()
 
-string='******************************************************************************'
-print(len(string))
