@@ -1,3 +1,14 @@
+def main():
+    print("사각형 그리기 프로그램")
+    
+    paint=makePaint()
+    num1,num2=takeTwoNumbers()
+    print(num1,num2)
+    num3,num4=takeTwoNumbers()
+    print(num3,num4)
+    paint=drawRectangle(paint,num1,num2,num3,num4)
+    printPaint(paint)
+
 def makePaint():
     paint=[
         [' ']*80 for _ in range(30)
@@ -48,12 +59,21 @@ def takeTwoNumbers():
             continue
         return num1,num2
 
-def main():
-    paint=makePaint()
-    printPaint(paint)
+def drawRectangle(paint,c1,r1,c2,r2):
+    # r2,c2가 항상 더 크도록 함
+    if c1>c2:
+        c1,c2=c2,c1
+    if r1>r2:
+        r1,r2=r2,r1
+    
+    for i in range(c1,c2+1):
+        for j in range(r1,r2+1):
+            paint[j][i]='*'
+    return paint
 
-    num1,num2=takeTwoNumbers()
-    print(num1,num2)
 
 if __name__=="__main__":
     main()
+
+string='******************************************************************************'
+print(len(string))
